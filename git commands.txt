@@ -1,0 +1,11 @@
+git commands
+
+1.  git clone "url"
+2.  ls
+3.  cd directory
+4.  git add "directory name"
+5.  git status
+6.  git commit -m "comment"
+7.  git log
+8.  git push
+9.  git push -f origin master====>(this command for forch pushing the file if simple push not working)

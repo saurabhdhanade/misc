@@ -1,0 +1,55 @@
+diff bet python 2 and python 3
+				python 2					python 3
+1) print function     print does not comes with parentises		print fun comes with perantices
+			print "Hello World"						print("Hello World")
+
+if we write print fun in python 3 without peranthises it will show syntax error
+
+2) range fun  		for loop comes with xrange fun 			for loop comes with range fun
+	
+
+3) divison operation  	in python 2 division takes floor (/) division 	python 3 has simple(/) division and floor (//)division
+
+in python 2 for integer it will floor the number i.e 2.5=2
+-2.5=-3
+for foating points number it will give floation point no
+print 5.0/2=2.5
+print 5/2= 2
+
+
+
+=========================================================================================
+
+Dictionery
+
+1) dict is the data type in python in which data is stored in Key:Value Pair
+2) in dict every key is unique (We can't reapte the same key twice)
+3)dict is denoted with {}
+
+
+d = {dict}
+ 
+print(d.get("country"))
+
+adding two dict
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+Step 1. Prepare the Django App
+Open the command prompt in appropriate file directory and run the following commands.
+
+django-admin startproject RestFulCRUD
+cd RestFulCRUD
+python manage.py startapp Employee
+pip install djangorestframework
+
+
+
+
+In the settings.py file add the name of the app that you just created along with rest_framework inside the INSTALLED_APPS
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'Employee',
+    'rest_framework',
+]
+
+
+
+Step 2. Prepare Models
+In the models.py file of Employee app create a model of your Employee
+
+class Employee(models.Model):
+    name=models.CharField(max_length=50)
+    code=models.CharField(max_length=8)
+    department=models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+Run the migration commands to migrate these changes into the database.
+
+python manage.py makemigrations
+python manage.py migrate
+Also create a super user to check that these changes are reflected in the database appropriately.
+
+python manage.py createsuperuser
+Now register the models that you created in the admin.py file of the Employee App.
+
+from django.contrib import admin
+from .models import *
+
+admin.site.register(Employee)
+
+
+
+
+Step 3. Setup the REST framework
+Create a file called serializers.py in the Employee App, with the following code.
+
+from rest_framework import serializers
+from .models import Employee
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Employee
+        fields='__all__'
+
+
+
+
+Next create a viewsets.py file in the Employee app to enable the REST framework.
+
+from rest_framework import viewsets
+from . import models
+from . import serializers
+
+class EmployeeViewset(viewsets.ModelViewSet):
+    queryset=models.Employee.objects.all()
+    serializer_class=serializers.EmployeeSerializer
+
+
+
+
+Now go back to the main App and create a router.py file with the following code.
+
+from Employee.viewsets import EmployeeViewset
+from rest_framework import routers
+
+router=routers.DefaultRouter()
+router.register('employee',EmployeeViewset)
+
+
+
+
+At last update to urls.py file in the main app to allow it to handle the various requests that the web-app will make.
+
+from django.contrib import admin
+from django.urls import path,include
+from .router import router
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/',include(router.urls)),
+]
+Now run the server with
+
+python manage.py runserver
+Go to http://127.0.0.1:8000/api/employee/ to test your new App.
+
